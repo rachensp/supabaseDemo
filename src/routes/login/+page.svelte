@@ -2,16 +2,16 @@
 	import Auth from '$lib/Auth.svelte';
 </script>
 
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
-	<div class="w-full md:max-w-md p-8 bg-white rounded-lg shadow-md top-third text-black">
+<div class="flex justify-center items-center min-h-screen">
+	<div
+		class="w-full md:max-w-md p-8 bg-white rounded-lg shadow-md top-quarter flex justify-center items-center"
+	>
 		<Auth />
 	</div>
 </div>
 
 <style>
-	.top-third {
-		margin-top: calc(
-			33vh - 20px
-		); /* Berechnet 1/3 der Bildschirmhöhe abzüglich des oberen Abstands der Karte */
+	.top-quarter {
+		margin-top: 12.5vh;
 	}
 </style>
