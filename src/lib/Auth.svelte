@@ -1,30 +1,32 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabase';
+	import { onMount } from 'svelte';
 
 	let loading = false;
 	let email = '';
-	let showModal = false;
-	let modalMessage = '';
-
-	const showModalAlert = (message: string) => {
-		modalMessage = message;
-		showModal = true;
-	};
+	let successMessage = false;
 
 	const handleLogin = async () => {
 		try {
 			loading = true;
 			const { error } = await supabase.auth.signInWithOtp({ email });
 			if (error) throw error;
-			showModalAlert('Check your email for login link!');
+			successMessage = true;
 		} catch (error) {
 			if (error instanceof Error) {
-				showModalAlert(error.message);
+				alert(error.message);
 			}
 		} finally {
 			loading = false;
 		}
 	};
+
+	onMount(() => {
+		const timer = setTimeout(() => {
+			successMessage = false;
+		}, 5000); // Hide success message after 5 seconds
+		return () => clearTimeout(timer);
+	});
 </script>
 
 <div class="row flex-center flex">
@@ -48,12 +50,22 @@
 				</button>
 			</div>
 		</form>
+		{#if successMessage}
+			<div role="alert" class="alert alert-success">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="stroke-current shrink-0 h-6 w-6"
+					fill="none"
+					viewBox="0 0 24 24"
+					><path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+					/></svg
+				>
+				<span>Your purchase has been confirmed!</span>
+			</div>
+		{/if}
 	</div>
 </div>
-
-<DaisyModal bind:show={showModal}>
-	<div class="p-4">
-		<h1 class="text-2xl font-bold">{modalMessage}</h1>
-		<button class="mt-4 button block" on:click={() => (showModal = false)}>Close</button>
-	</div>
-</DaisyModal>

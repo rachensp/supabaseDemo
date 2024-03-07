@@ -68,30 +68,36 @@
 	}
 </script>
 
-<div class="card w-96 bg-neutral text-neutral-content">
-	<div class="card-body items-center text-left">
-		{#if $session}
-			<form on:submit|preventDefault={updateProfile} class="form-widget">
-				<div>Email: {$session.user.email}</div>
-				<div>
-					<label for="username">Name</label>
-					<input id="username" type="text" bind:value={username} />
-				</div>
-				<div>
-					<label for="website">Website</label>
-					<input id="website" type="text" bind:value={website} />
-				</div>
-				<div>
-					<button type="submit" class="button primary block" disabled={loading}>
-						{loading ? 'Saving ...' : 'Update profile'}
-					</button>
-				</div>
-				<button type="button" class="button block" on:click={() => supabase.auth.signOut()}>
-					Sign Out
-				</button>
-			</form>
-		{:else}
-			<div>seems you are not logged in</div>
-		{/if}
+<div class="flex justify-center items-center h-screen">
+	<div class="w-96">
+		<div class="card bg-neutral text-neutral-content">
+			<div class="card-body">
+				{#if $session}
+					<form on:submit|preventDefault={updateProfile} class="form-widget space-y-4">
+						<div>Email: {$session.user.email}</div>
+						<div>
+							<label for="username">Name</label>
+							<input id="username" type="text" class="input" bind:value={username} />
+						</div>
+						<div>
+							<label for="website">Website</label>
+							<input id="website" type="text" class="input" bind:value={website} />
+						</div>
+						<div class="flex justify-center">
+							<button type="submit" class="btn btn-primary" disabled={loading}>
+								{loading ? 'Saving ...' : 'Update profile'}
+							</button>
+						</div>
+						<div class="flex justify-center">
+							<button type="button" class="btn" on:click={() => supabase.auth.signOut()}>
+								Sign Out
+							</button>
+						</div>
+					</form>
+				{:else}
+					<div class="text-center">Seems you are not logged in</div>
+				{/if}
+			</div>
+		</div>
 	</div>
 </div>
