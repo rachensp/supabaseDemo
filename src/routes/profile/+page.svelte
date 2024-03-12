@@ -75,7 +75,9 @@
 			<div class="card-body">
 				{#if $session}
 					<form on:submit|preventDefault={updateProfile} class="form-widget space-y-4">
-						<Avatar size={10} bind:url={avatarUrl} on:upload={updateProfile} />
+						<div class="flex justify-center">
+							<Avatar size={100} bind:url={avatarUrl} on:upload={updateProfile} />
+						</div>
 						<div>Email: {$session.user.email}</div>
 						<div>
 							<label for="username">Name</label>
