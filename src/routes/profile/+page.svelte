@@ -81,11 +81,21 @@
 						<div>Email: {$session.user.email}</div>
 						<div>
 							<label for="username">Name</label>
-							<input id="username" type="text" class="input" bind:value={username} />
+							<input
+								id="username"
+								type="text"
+								class="input bg-white text-black"
+								bind:value={username}
+							/>
 						</div>
 						<div>
 							<label for="website">Website</label>
-							<input id="website" type="text" class="input" bind:value={website} />
+							<input
+								id="website"
+								type="text"
+								class="input bg-white text-black"
+								bind:value={website}
+							/>
 						</div>
 						<div class="flex justify-center">
 							<button type="submit" class="btn btn-primary" disabled={loading}>
